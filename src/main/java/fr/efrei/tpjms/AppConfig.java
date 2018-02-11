@@ -10,6 +10,8 @@ import javax.jms.QueueSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import fr.efrei.tpjms.service.RentService;
+
 
 
 public class AppConfig {
@@ -20,11 +22,12 @@ public class AppConfig {
 		System.out.println("JMS监听器启动");
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContextJMS.xml");
 		QueueConnectionFactory factory = (QueueConnectionFactory) applicationContext.getBean("connectionFactory");
-		Queue queue = (Queue) applicationContext.getBean("queue");
+		Queue queue = (Queue) applicationContext.getBean("queueJpa");
 		QueueConnection connection = factory.createQueueConnection();
 		QueueSession session = connection.createQueueSession(true, 1);
 		connection.start();
 		MessageConsumer messageConsumer = session.createConsumer(queue);
 		messageConsumer.setMessageListener(new Listener());
+		RentService rService = new RentService();
 	}
 }

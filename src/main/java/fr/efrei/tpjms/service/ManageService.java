@@ -31,31 +31,16 @@ public class ManageService {
 	public ManageService() throws JMSException {
 		applicationContext = new ClassPathXmlApplicationContext("applicationContextJMS.xml");
 		factory = (QueueConnectionFactory) applicationContext.getBean("connectionFactory");
-		queue = (Queue) applicationContext.getBean("queue");
+		queue = (Queue) applicationContext.getBean("queueJpa");
 		// Create a connection. See  https://docs.oracle.com/javaee/7/api/javax/jms/package-summary.html
 		connection = factory.createQueueConnection();
-		session = connection.createQueueSession(true, 1);
+		session = connection.createQueueSession(false, 1);
 	}
 	public void send() throws JMSException, JSONException {
 		
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContextJMS.xml");
-		  QueueConnectionFactory factory = (QueueConnectionFactory) applicationContext.getBean("connectionFactory");
-		
-		  Queue queue = (Queue) applicationContext.getBean("queue");
-		  
-		  // Create a connection. See https://docs.oracle.com/javaee/7/api/javax/jms/package-summary.html
-		  QueueConnection connection = factory.createQueueConnection();
-		  // Open a session
-		  QueueSession session = connection.createQueueSession(false,Session.AUTO_ACKNOWLEDGE);
-		  // Start the connection
-		  
 		  connection.start();
 		  // Create a sender
 		  QueueSender queueSender = session.createSender(queue);
-		  // Create a message
-		  
-		  
-		  
 		  String message = "hello world";
 		 //JSON测试
 		  JSONObject jObject = new JSONObject();
@@ -73,6 +58,7 @@ public class ManageService {
 		  session.close();
 		  // Close the connection
 		  connection.close();
+		  System.out.println("发送完毕");
 		
 	}
 	

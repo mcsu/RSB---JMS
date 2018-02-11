@@ -17,7 +17,9 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<bean id="queue" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg value="suQueue"/>
 	</bean>	
-	
+	<bean id="queueJpa" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="JPAQueue"/>
+	</bean>
 	<!-- TOPIC -->
 	
 	<bean id="topic" class="org.apache.activemq.command.ActiveMQTopic">

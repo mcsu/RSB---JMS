@@ -36,10 +36,13 @@ public class ManageController {
 		 //rs.rent(plateNumber);
 	 } 
 	
+	
+	//Angular 获取入口
 	@RequestMapping(value = "/voitures", method = RequestMethod.GET)
-	 @ResponseStatus(HttpStatus.OK)
-	 public String showAll() {
-		 return "showAll";
-		 //rs.rent(plateNumber);
-	 } 
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	 public String showAll() throws JMSException {
+		RentService rs = new RentService();
+		return rs.getAll();
+	 }  
 }
